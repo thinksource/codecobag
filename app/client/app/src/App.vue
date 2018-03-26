@@ -9,8 +9,8 @@
     show-icon>
   </el-alert>
 <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="120px" class="demo-ruleForm">
-  <el-form-item label="Send mail to" prop="mailto">
-    <el-input type="text" v-model="ruleForm2.mailto" auto-complete="off"></el-input>
+  <el-form-item label="Send mail to" prop="to">
+    <el-input type="text" v-model="ruleForm2.to" auto-complete="off"></el-input>
   </el-form-item>
   <el-form-item label="CC" prop="cc">
     <el-input type="text" v-model="ruleForm2.cc" auto-complete="off"></el-input>
@@ -18,7 +18,7 @@
   <el-form-item label="BCC" prop="bcc">
     <el-input type="text" v-model="ruleForm2.bcc" auto-complete="off"></el-input>
   </el-form-item>
-  <el-form-item label="Title" prop="title">
+  <el-form-item label="Title" prop="subject">
     <el-input type="text" v-model="ruleForm2.subject" auto-complete="off"></el-input>
   </el-form-item>
 
@@ -60,8 +60,8 @@ export default {
     };
     var validateEmail = (rule, value, callback) =>{
       var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      alert(this.ruleForm2.mailto);
-      if (this.ruleForm2.mailto === '' && this.ruleForm2.cc ==='' && this.ruleForm2.bcc === ''){
+      // alert(this.ruleForm2.mailto);
+      if (this.ruleForm2.to === '' && this.ruleForm2.cc ==='' && this.ruleForm2.bcc === ''){
         callback(new Error("Please input an email address"));
       }else{
         var va=value.split(',');
@@ -77,14 +77,14 @@ export default {
     return {
       error:"",
       ruleForm2: {
-        mailto:'',
+        to:'',
         cc:'',
         bcc:'',
         subject:'',
         text:''
       },
       rules2: {
-        mailto:[
+        to:[
           {validator: validateEmail, trigger:'blur'}
         ],
         cc:[
@@ -93,7 +93,7 @@ export default {
         bcc:[
           {validator: validateEmail, trigger:'blur'}
         ],
-        title:[
+        subject:[
           {required:true, message:'please input the title', trigger:'blur'}
         ]
       }
@@ -102,9 +102,10 @@ export default {
   methods: {
     submitForm(formName) {
       var self=this;
+      console.log(this.$refs[formName]);
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          $myreq.post('/sendemail', this.data.ruleForm2).then(
+          $myreq.post('/sendmail', this.ruleForm2).then(
             function(res){
               if(res.data)
                 self.$message(res.data["message"])
@@ -112,7 +113,7 @@ export default {
                 self.$message("Email already in sending queue");
             }
           ).catch((error)=>{
-            if(res.data)
+            if(error.data)
               self.error=res.data;
             else
               self.error="this is an error";
@@ -161,4 +162,5 @@ a {
 </style>
 <style lang="scss">
 @import url("//unpkg.com/element-ui@2.2.2/lib/theme-chalk/index.css");
+// @import 'assets/css/index.css';
 </style>

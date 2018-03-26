@@ -4,9 +4,11 @@ Backend Template
 Use this to display server debugging info during development
 
 """
-from flask import render_template
+from flask import render_template,request,jsonify
 from app.api import api_bp
 import requests
+from requests.auth import HTTPBasicAuth
+import json
 
 import sendgrid
 import os
@@ -18,24 +20,31 @@ def api():
     return render_template('api.html', msg='API Blueprint View')
 
 
-@api_bp.route('/sendmail', methods=['POST'])
+@api_bp.route('/sendmail', methods=['GET', 'POST'])
 def sendmail():
     url='https://api.mailgun.net/v3/ausingredient.tk/messages'
     content = request.get_json()
     content["from"]="postmaster@ausingredient.tk"
+    if(content["cc"]==""):
+        del content["cc"]
+    
+    if(content["bcc"]==""):
+        del content["bcc"]
+    
     print(content)
     authurl=HTTPBasicAuth('api','key-e9566dfbfd455918df939ad27239ce16')
     session=requests.Session()
     rs=session.request('post', url, auth=authurl, data=content)
-    result=rs.result()
-    if (result.status_code<300 and result.status_code>=200):
-        return jsonify(result.json())
+    # print(dir(rs.text))
+    result=json.loads(rs.text)
+    if (rs.status_code<300 and rs.status_code>=200):
+        return jsonify(result)
     else:
         result=sendgrid(content)
-        if result.status_code<300 and result.status_code>=200:
+        if(result.status_code<300 and result.status_code>=200):
             return jsonify(result.json())
         else:
-            return jsonify(result.json()), result.status_code
+            return jsonify(result), rs.status_code
     
 def string2emaillist(emailaddress):
     rs=[]

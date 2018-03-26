@@ -8,7 +8,7 @@ api_bp = Blueprint('api_bp', __name__,
                    template_folder='templates',
                    url_prefix='/api')
 
-api_rest = Api(api_bp)
+# api_rest = Api(api_bp)
 
 # OPTIONAL
 @api_bp.after_request
@@ -17,5 +17,9 @@ def add_header(response):
     response.headers['Access-Control-Allow-Origin'] = '*'
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
     return response
+
+# @api_bp.route('/')
+# def api():
+#     return render_template('api.html', msg='API Blueprint View')
 
 from app.api import views
