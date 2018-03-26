@@ -1,13 +1,4 @@
-# Flask-Vue-Template
-
-A project template for a Flask-Vue.js Web Application
-
-Note: PRs, comments and suggestions are welcome.
-
-## Motivation
-
-I have been using Flask for a while and I recently started using Vue.js.
-I wanted to continue using Python as a Backend while migrating all frontend logic to VueJs.
+# Cab project
 
 ## Application Structure
 
