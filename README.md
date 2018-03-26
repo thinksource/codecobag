@@ -86,14 +86,10 @@ git push heroku
 
 #### Client App
 * Vue.js
-* Vuex
-* Vue Router
 * Bulma Css
-* Axios
 * es-lint
 * friendly-errors-webpack-plugin
 * Webpack loaders
 
 #### Api App
 * Flask
-* Flask-RESTful
