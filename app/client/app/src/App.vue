@@ -66,7 +66,7 @@ export default {
       }else{
         var va=value.split(',');
         va.forEach(function(v){
-          if (!re.test(v) && v !== ''){
+          if (!re.test(v.trim()) && v !== ''){
           callback(new Error("Email address "+v+" is wrong format.Please input correct email address"));
         }
         })
@@ -102,6 +102,7 @@ export default {
   methods: {
     submitForm(formName) {
       var self=this;
+      this.error="";
       console.log(this.$refs[formName]);
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -127,6 +128,7 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
+      this.error="";
     }
   }
 }
