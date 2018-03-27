@@ -13,7 +13,7 @@ import json
 from sendgrid.helpers.mail import *
 from collections import namedtuple
 import sendgrid
-gridkey="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"
+
 
 def string2emaillist(emailaddress):
     rs=[]
@@ -24,7 +24,7 @@ def string2emaillist(emailaddress):
 
 
 def sendmail_grid(content):
-    gridkey = "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"
+
     sg = sendgrid.SendGridAPIClient(apikey=gridkey)
     personalization={}
     if 'to' in content:
@@ -68,7 +68,7 @@ def sendmail():
         del content["to"]
     
     # print(content)
-    authurl=HTTPBasicAuth('api','key-e9566dfbfd455918df939ad27239ce16')
+    authurl=HTTPBasicAuth('api','')
     session=requests.Session()
     rs=session.request('post', url, auth=authurl, data=content)
     # print(dir(rs.text))
