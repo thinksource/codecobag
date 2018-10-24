@@ -13,7 +13,7 @@ import json
 from sendgrid.helpers.mail import *
 from collections import namedtuple
 import sendgrid
-
+import logging
 
 def string2emaillist(emailaddress):
     rs=[]
@@ -74,10 +74,12 @@ def sendmail():
     # print(dir(rs.text))
     # r={'status_code':400, 'text':"error"}
     # rs=namedtuple('Struct', r.keys())(*r.values())
-    result=json.loads(rs.text)
+    # import pdb; pdb.set_trace()
+    # logging.info(rs.text)
+    # result=json.loads(rs.text)
     # result=rs
     if (rs.status_code<300 and rs.status_code>=200):
-        return jsonify(result)
+        return rs.json()
     else:
         result=sendmail_grid(content)
         print(result.body)
@@ -87,4 +89,4 @@ def sendmail():
             else:
                 return jsonify(message="mails in queue")
         else:
-            return jsonify(json.loads(r)), rs.status_code
+            return jsonify(json.loads(r.content)), rs.status_code

@@ -52,10 +52,15 @@ From `app/client/app`:
 
 `python run.py`
 
+**gridkey** in views.py you must setting as your own gridkey string before you do sending email. 
+
+
 This will server the `/api` endpoint _and_ the built Vue application at `localhost:5000`
 The disadvantage of this method is that it does not offer hot-reloading, js linting, etc.
 
 To take advantage of these features, keep the flask server running on `localhost:5000`, and then start the webpack dev server from another shell.
+
+
 
 From `app/client/app`:
 
