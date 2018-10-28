@@ -14,7 +14,7 @@ from sendgrid.helpers.mail import *
 from collections import namedtuple
 import sendgrid
 import logging
-
+gridkey="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"
 def string2emaillist(emailaddress):
     rs=[]
     arr=emailaddress.split(",")
@@ -32,7 +32,7 @@ def sendmail_grid(content):
     if 'cc' in content:
         personalization["cc"]=string2emaillist(content["cc"])
     if 'bcc' in content:
-        personalization["bcc"]=stirng2emaillist(content["bcc"])
+        personalization["bcc"]=string2emaillist(content["bcc"])
     personalization["subject"]=content["subject"]
     data={
         "personalizations": [personalization],
