@@ -1,11 +1,11 @@
 import Vue from 'vue'
-
-import Element from 'element-ui'
 import App from './App.vue'
+import ElementUI from 'element-ui'
 
-Vue.use(Element, { size: 'small' });
+Vue.config.productionTip = false
+
+Vue.use(ElementUI)
 
 new Vue({
-  el: '#app',
   render: h => h(App)
-})
+}).$mount('#app')

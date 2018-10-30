@@ -14,7 +14,7 @@ from sendgrid.helpers.mail import *
 from collections import namedtuple
 import sendgrid
 import logging
-gridkey="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"
+gridkey="gridkey"
 def string2emaillist(emailaddress):
     rs=[]
     arr=emailaddress.split(",")
@@ -50,7 +50,7 @@ def sendmail_grid(content):
 
 @api_bp.route('/')
 def api():
-    return render_template('api.html', msg='API Blueprint View')
+    return render_template('index.html', msg='API Blueprint View')
 
 
 @api_bp.route('/sendmail', methods=['GET', 'POST'])
@@ -89,4 +89,4 @@ def sendmail():
             else:
                 return jsonify(message="mails in queue")
         else:
-            return jsonify(json.loads(r.content)), rs.status_code
+            return jsonify(json.loads(rs.content)), rs.status_code

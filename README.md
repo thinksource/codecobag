@@ -52,7 +52,7 @@ From `app/client/app`:
 
 `python run.py`
 
-**gridkey** in views.py you must setting as your own gridkey string before you do sending email. 
+**gridkey** in api/views.py you must setting as your own gridkey string before you do sending email. 
 
 
 This will server the `/api` endpoint _and_ the built Vue application at `localhost:5000`
