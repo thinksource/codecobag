@@ -52,6 +52,10 @@ From `app/client/app`:
 
 `python run.py`
 
+4. For test api
+
+`pytest -q test_sendmail_api.py`
+
 **gridkey** in api/views.py you must setting as your own gridkey string before you do sending email. 
 
 
@@ -60,6 +64,11 @@ The disadvantage of this method is that it does not offer hot-reloading, js lint
 
 To take advantage of these features, keep the flask server running on `localhost:5000`, and then start the webpack dev server from another shell.
 
+#### Note
+
+1. There is no aws sending email
+
+2. The front-end vue.js you can see in app/client/app part
 
 
 From `app/client/app`:

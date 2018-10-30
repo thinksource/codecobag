@@ -14,7 +14,7 @@ from sendgrid.helpers.mail import *
 from collections import namedtuple
 import sendgrid
 import logging
-gridkey="gridkey"
+gridkey="apikey"
 def string2emaillist(emailaddress):
     rs=[]
     arr=emailaddress.split(",")
@@ -58,13 +58,13 @@ def sendmail():
     url='https://api.mailgun.net/v3/ausingredient.tk/messages'
     content = request.get_json()
     content["from"]="postmaster@ausingredient.tk"
-    if(content["cc"]==""):
+    if("cc" in content and content["cc"]==""):
         del content["cc"]
     
-    if(content["bcc"]==""):
+    if("bcc" in content and content["bcc"]==""):
         del content["bcc"]
     
-    if(content["to"]==""):
+    if("to" in content and content["to"]==""):
         del content["to"]
     
     # print(content)
